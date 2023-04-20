@@ -1,5 +1,4 @@
 import resetControls from "./controls"
-import "./timer.js"
 import { Timer } from "./timer.js"
 
 let playButton =  document.querySelector(".play")
@@ -21,7 +20,7 @@ const timer = Timer ({
 
 function changeButtonPlay (){
   resetControls()
-  countDown()
+  timer.countDown()
 }
 
 function changeButtonPause (){
@@ -37,7 +36,7 @@ function changeButtonStop (){
   playButton.classList.remove("hide")
   pauseButton.classList.add("hide")
 
-  resetTime()
+  timer.resetTimer()
 }
 
 function changeVolOnOff (){

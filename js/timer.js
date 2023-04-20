@@ -9,7 +9,7 @@ export function Timer ({
   secondesDisplay.textContent = String(seconds).padStart(2, "0")
 }
 
-function resetTime(){
+function resetTimer(){
   updateTimerDisplay(minutes, 0)
   clearTimeout(timerTimeOut)
 }
@@ -42,7 +42,7 @@ function countDown (){
 
   return {
     countDown,
-    resetTime
+    resetTimer
   }
 }
 
