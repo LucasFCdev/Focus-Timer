@@ -9,12 +9,12 @@ export function Timer ({
   secondesDisplay.textContent = String(seconds).padStart(2, "0")
 }
 
-function resetTimer(){
+function reset(){
   updateTimerDisplay(minutes, 0)
   clearTimeout(timerTimeOut)
 }
 
-function countDown (){
+function countDown(){
   timerTimeOut = setTimeout(function (){
     let seconds = Number(secondesDisplay.textContent) 
     let minutesCount = Number(minutesDisplay.textContent)
@@ -38,12 +38,13 @@ function countDown (){
  
     countDown()
 
-  },1000)
+  }, 1000)
+}
 
   return {
     countDown,
-    resetTimer
+    reset,
+    updateTimerDisplay
   }
-}
 
 }

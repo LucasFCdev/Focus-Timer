@@ -1,4 +1,4 @@
-import resetControls from "./controls"
+import Controls from "./controls.js"
 import { Timer } from "./timer.js"
 
 let playButton =  document.querySelector(".play")
@@ -10,51 +10,54 @@ let volOff = document.querySelector(".vol-off")
 let minutesDisplay = document.querySelector(".minutes")
 let secondesDisplay = document.querySelector(".seconds")
 let minutes = Number(minutesDisplay.textContent)
+let timerTimeOut
+
+const controls = Controls ({
+  playButton,
+  pauseButton,
+  stopButton,
+  configButton,
+})
 
 const timer = Timer ({
   minutesDisplay,
   secondesDisplay,
-  resetControls,
-  timerTimeOut
+  timerTimeOut,
+  resetControls: controls.reset
+  
 })
-
-function changeButtonPlay (){
-  resetControls()
-  timer.countDown()
-}
-
-function changeButtonPause (){
-  playButton.classList.toggle("hide")
-  pauseButton.classList.toggle("hide")
-
-  clearTimeout (timerTimeOut)
-}
-
-function changeButtonStop (){
-  stopButton.classList.toggle('hide')
-  configButton.classList.toggle('hide')
-  playButton.classList.remove("hide")
-  pauseButton.classList.add("hide")
-
-  timer.resetTimer()
-}
 
 function changeVolOnOff (){
   volOn.classList.toggle('hide')
   volOff.classList.toggle('hide')
 }
 
-function setConfig (){
-  minutes = prompt('Quantos minutos') || 0
-  updateTimerDisplay(minutes, 0)
-}
+playButton.addEventListener('click', function(){
+  controls.play()
+  timer.countDown()
+})
 
-playButton.addEventListener('click', changeButtonPlay)
-pauseButton.addEventListener('click', changeButtonPause)
+pauseButton.addEventListener('click', function(){
+  controls.pause()
+  clearTimeout(timerTimeOut)
+})
 
-stopButton.addEventListener('click', changeButtonStop)
+stopButton.addEventListener('click', function(){
+  controls.reset()
+  timer.reset()
+})
 
 volOn.addEventListener('click', changeVolOnOff)
 volOff.addEventListener('click', changeVolOnOff)
 
-configButton.addEventListener('click', setConfig)
+configButton.addEventListener('click', function(){
+  let newMinutes = controls.getMinutes()
+
+  if (!newMinutes){
+    timer.reset()
+    return
+  }
+
+  minutes = newMinutes
+  timer.updateTimerDisplay(minutes, 0)
+})
