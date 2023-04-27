@@ -18,8 +18,8 @@ export default function Controls({
   }
   
   function reset(){
-    playButton.classList.toggle("hide")
-    pauseButton.classList.toggle("hide")
+    playButton.classList.remove("hide")
+    pauseButton.classList.add("hide")
     stopButton.classList.add('hide')
     configButton.classList.remove('hide')
   }

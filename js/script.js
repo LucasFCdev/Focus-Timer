@@ -1,5 +1,5 @@
 import Controls from "./controls.js"
-import { Timer } from "./timer.js"
+import Timer from "./timer.js"
 
 let playButton =  document.querySelector(".play")
 let pauseButton = document.querySelector(".pause")
@@ -23,6 +23,7 @@ const timer = Timer ({
   minutesDisplay,
   secondesDisplay,
   timerTimeOut,
+  minutes,
   resetControls: controls.reset
   
 })

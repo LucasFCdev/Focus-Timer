@@ -1,45 +1,48 @@
-export function Timer ({
+export default function Timer ({
   minutesDisplay,
   secondesDisplay,
   timerTimeOut,
-  resetControls,
+  minutes,
+  resetControls
 })
-{function updateTimerDisplay (minutes, seconds){
-  minutesDisplay.textContent = String(minutes).padStart(2, "0")
-  secondesDisplay.textContent = String(seconds).padStart(2, "0")
-}
+{ function updateTimerDisplay (minutes, seconds){
+    minutesDisplay.textContent = String(minutes).padStart(2, "0")
+    secondesDisplay.textContent = String(seconds).padStart(2, "0")
+  }
 
-function reset(){
-  updateTimerDisplay(minutes, 0)
-  clearTimeout(timerTimeOut)
-}
+  function reset(){
+    updateTimerDisplay(minutes, 0)
+    clearTimeout(timerTimeOut)
+  }
 
-function countDown(){
-  timerTimeOut = setTimeout(function (){
-    let seconds = Number(secondesDisplay.textContent) 
-    let minutesCount = Number(minutesDisplay.textContent)
+  function countDown(){
+    timerTimeOut = setTimeout(function (){
+      let seconds = Number(secondesDisplay.textContent) 
+      let minutesCount = Number(minutesDisplay.textContent)
+    
+      updateTimerDisplay(minutesCount, 0)
+
+      if (minutesCount <= 0 && seconds <= 0){
+        
+        resetControls()
+
+        return
+      }
+
+      if (seconds <= 0){
+        seconds = 5
+        --minutesCount
+        //minutesDisplay.textContent = String(minutesCount - 1).padStart(2, "0")
+      }
+
+      updateTimerDisplay(minutesCount, String(seconds-1))
   
-    updateTimerDisplay(minutesCount, 0)
+      countDown()
 
-    if (minutesCount <= 0 && seconds <= 0){
-      
-      resetControls()
+    }, 1000)
+  }
 
-      return
-    }
 
-    if (seconds <= 0){
-      seconds = 5
-      --minutesCount
-      //minutesDisplay.textContent = String(minutesCount - 1).padStart(2, "0")
-    }
-
-    updateTimerDisplay(minutesCount, String(seconds-1))
- 
-    countDown()
-
-  }, 1000)
-}
 
   return {
     countDown,
