@@ -38,7 +38,7 @@ export default function Controls({
     play,
     pause,
     reset,
-    getMinutes
+    getMinutes,
   }
 
 }

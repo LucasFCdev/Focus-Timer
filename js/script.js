@@ -10,7 +10,6 @@ let volOff = document.querySelector(".vol-off")
 let minutesDisplay = document.querySelector(".minutes")
 let secondesDisplay = document.querySelector(".seconds")
 let minutes = Number(minutesDisplay.textContent)
-let timerTimeOut
 
 const controls = Controls ({
   playButton,
@@ -22,10 +21,8 @@ const controls = Controls ({
 const timer = Timer ({
   minutesDisplay,
   secondesDisplay,
-  timerTimeOut,
   minutes,
   resetControls: controls.reset
-  
 })
 
 function changeVolOnOff (){
@@ -40,7 +37,7 @@ playButton.addEventListener('click', function(){
 
 pauseButton.addEventListener('click', function(){
   controls.pause()
-  clearTimeout(timerTimeOut)
+  timer.hold()
 })
 
 stopButton.addEventListener('click', function(){
@@ -61,4 +58,5 @@ configButton.addEventListener('click', function(){
 
   minutes = newMinutes
   timer.updateTimerDisplay(minutes, 0)
+  timer.updateMinutes(minutes)
 })
